@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Leav</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+    <section>
+        <center>
+            <img src="https://png.pngtree.com/template/20190217/ourlarge/pngtree-initial-v-letter-flame-logo-design-fire-logo-lettering-concept-image_56596.jpg"
+                alt="Leav" style="width:150px;height:150px;">
+        </center>
+    </section>
+    <p style="color:#6D6D6D; font-family:Arial Semibold; text-align:center;">HÔTEL RENAISSANCE</p>
+
+    <section>
+
+        <table>
+            <tr>
+                <th>Q</th>
+                <th>Item</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td>1x</td>
+                <td>Vin Rouge</td>
+                <td>$40.00</td>
+            </tr>
+            <tr>
+                <td>1x</td>
+                <td>Steak</td>
+                <td>$16.95</td>
+            </tr>
+            <tr>
+                <td>1x</td>
+                <td>Crème Brulée</td>
+                <td>$22.00</td>
+            </tr>
+            <tr>
+                <td>1x</td>
+                <td>Burrata</td>
+                <td>$12.45</td>
+            </tr>
+            <tr>
+                <td>1x</td>
+                <td>Vin Rouge</td>
+                <td>$40.00</td>
+            </tr>
+            <tr>
+                <td>1x</td>
+                <td>Steak</td>
+                <td>$16.95</td>
+            </tr>
+            <tr>
+                <td>1x</td>
+                <td>Crème Brulée</td>
+                <td>$22.00</td>
+            </tr>
+            <tr>
+                <td>1x</td>
+                <td>Burrata</td>
+                <td>$12.45</td>
+            </tr>
+        </table>
+
+    </section>
+
+    <section>
+        <hr>
+        <p style="text-align:left;">
+            Subtotal
+            <span style="float:right;">
+                $132.20
+            </span>
+        </p>
+        <p style="text-align:left;">
+            TPS
+            <span style="float:right;">
+                $19.83
+            </span>
+        </p>
+        <p style="text-align:left;">
+            TVQ
+            <span style="float:right;">
+                $27.37
+            </span>
+        </p>
+    </section>
+    <section>
+        <p style="font-family: Arial Semibold; font-size:300%; text-align:center;">179.40</p>
+    </section>
+    </head>
+
+
+
+    <p style="text-align:left;">
+        Tip
+        <span style="float:right;">
+            <span id="demo"></span>% | <button class="btn" data-toggle="modal" data-target="#exampleModalCenter">$<span
+                    id="num"></span></button>
+        </span>
+    </p>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Custom Tip</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newTip" method="post">
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="inputTip" placeholder="Tip" required>
+                        </div>
+                        <input type="submit" value="Enter">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section>
+        <p><span id="newTip"></span></p>Here
+    </section>
+
+
+    <div class="slidecontainer">
+        <input type="range" min="1" max="100" value="18" class="slider" id="myRange">
+    </div>
+    <p style="text-align:left;">
+        Total
+        <span style="float:right;">
+            <span id="total"></span>
+        </span>
+    </p>
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        var numOutput = document.getElementById("num");
+        var total = document.getElementById("total");
+        output.innerHTML = slider.value;
+        numOutput.innerHTML = ((slider.value * 179.40 / 100).toFixed(2));
+        total.innerHTML = ((179.40 + slider.value * 179.40 / 100).toFixed(2));
+
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+            numOutput.innerHTML = ((this.value * 179.40 / 100).toFixed(2));
+            total.innerHTML = ((179.40 + this.value * 179.40 / 100).toFixed(2));
+        }
+
+    </script>
+
+    </section>
+
+    <section>
+        <script>
+
+            var stripe = Stripe('pk_test_oSQcKF0cFBUrkfHoYQ6V3hXI00TIVXS4gW');
+
+            var paymentRequest = stripe.paymentRequest({
+                country: 'US',
+                currency: 'usd',
+                total: {
+                    label: 'Demo total',
+                    amount: 1099,
+                },
+                requestPayerName: true,
+                requestPayerEmail: true,
+            });
+
+            var elements = stripe.elements();
+            var prButton = elements.create('paymentRequestButton', {
+                paymentRequest: paymentRequest,
+            });
+
+            // Check the availability of the Payment Request API first.
+            paymentRequest.canMakePayment().then(function (result) {
+                if (result) {
+                    prButton.mount('#payment-request-button');
+                } else {
+                    document.getElementById('payment-request-button').style.display = 'none';
+                    window.alert("Nope");
+                }
+            });
+        </script>
+        <div id="payment-request-button">
+            <!-- A Stripe Element will be inserted here. -->
+        </div>
+    </section>
+</body>
+
+</html>
