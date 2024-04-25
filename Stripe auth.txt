@@ -1,7 +1,7 @@
-Password: L##se^m98K$&2nVsNq2aGlwX!@f
+Password: 
 11:35
 Email: business@leav.ca
 
 Publishable key: pk_test_oSQcKF0cFBUrkfHoYQ6V3hXI00TIVXS4gW
-Secret key: sk_test_TANFIEg5OJrZx8bul36TdgdF00up7rdjns
-API Key: sk_live_tdueW5tgmxN5BuqCzY9lB0lr00T2qE1R32
+Secret key: 
+API Key: 
